@@ -1,4 +1,4 @@
-package utils;
+package com.cybertek.library1.utils;
 
 import com.github.javafaker.Faker;
 

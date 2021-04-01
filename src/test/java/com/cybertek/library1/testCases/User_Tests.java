@@ -1,9 +1,11 @@
-package test_cases;
+package com.cybertek.library1.testCases;
 
+import com.cybertek.library1.utils.ConfigurationReader;
+import com.cybertek.library1.utils.Utils;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.*;
-import utils.ConfigurationReader;
-import utils.Utils;
+import org.junit.platform.runner.JUnitPlatform;
+import org.junit.runner.RunWith;
 
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -12,13 +14,16 @@ import java.util.Set;
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 
+@RunWith(JUnitPlatform.class)
 @DisplayName("All test cases related to User section in documentation")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@Tag("regression")
 public class User_Tests extends Utils {
 
-  @DisplayName("librarian valid credentials Post /login test")
   @Test
   @Order(1)
+  @Tag("smoke")
+  @DisplayName("librarian valid credentials Post /login test")
   public void librarianValidLoginTest() {
     String validLibrarianEmail = ConfigurationReader.getProperty("librarian69");
     String validLibrarianPasswd = ConfigurationReader.getProperty("librarian69Passwd");
@@ -36,9 +41,10 @@ public class User_Tests extends Utils {
     ;
   }
 
-  @DisplayName("librarian invalid credentials Post /login test")
   @Test
   @Order(2)
+  @Tag("smoke")
+  @DisplayName("librarian invalid credentials Post /login test")
   public void librarianInvalidLoginTest() {
     String validLibrarianEmail = ConfigurationReader.getProperty("librarian69");
     String invalidLibrarianPasswd = "fakePasswd";
@@ -56,9 +62,10 @@ public class User_Tests extends Utils {
     ;
   }
 
-  @DisplayName("POST /decode")
   @Test
   @Order(3)
+  @Tag("smoke")
+  @DisplayName("POST /decode")
   public void librarianDecodeTest() {
     given()
             .log().all()
@@ -74,9 +81,9 @@ public class User_Tests extends Utils {
     ;
   }
 
-  @DisplayName("POST negative test /decode")
   @Test
   @Order(4)
+  @DisplayName("POST negative test /decode")
   public void librarianDecodeNegativeTest() {
     given()
             .log().all()
@@ -91,9 +98,10 @@ public class User_Tests extends Utils {
     ;
   }
 
-  @DisplayName("POST using Map /add_user")
   @Test
   @Order(5)
+  @Tag("smoke")
+  @DisplayName("POST using Map /add_user")
   public void addOneUserTest() {
     user_id =
             given()
@@ -113,9 +121,10 @@ public class User_Tests extends Utils {
     System.out.println("user_id = " + user_id);
   }
 
-  @DisplayName("PATCH /update_user")
   @Test
   @Order(6)
+  @Tag("smoke")
+  @DisplayName("PATCH /update_user")
   public void updateOneUserTest() {
     System.out.println("user_id = " + user_id);
     given()
@@ -132,9 +141,9 @@ public class User_Tests extends Utils {
     ;
   }
 
-  @DisplayName("PATCH negative test wrong edit /update_user")
   @Test
   @Order(7)
+  @DisplayName("PATCH negative test wrong edit /update_user")
   public void updateOneUserNegativeTest() {
     System.out.println("user_id = " + user_id);
     given()
@@ -151,9 +160,9 @@ public class User_Tests extends Utils {
     ;
   }
 
-  @DisplayName("PATCH negative test Unauthorized user-Student /update_user")
   @Test
   @Order(8)
+  @DisplayName("PATCH negative test Unauthorized user-Student /update_user")
   public void UpdateOneUserNegativeUnauthorizedUserStudentTest() {
     given()
             .log().all()
@@ -169,9 +178,9 @@ public class User_Tests extends Utils {
     ;
   }
 
-  @DisplayName("PATCH negative test Unauthorized user-NoBody /update_user")
   @Test
   @Order(8)
+  @DisplayName("PATCH negative test Unauthorized user-NoBody /update_user")
   public void UpdateOneUserNegativeUnauthorizedNoUserTest() {
     given()
             .log().all()
@@ -185,9 +194,10 @@ public class User_Tests extends Utils {
     ;
   }
 
-  @DisplayName("GET /get_user_by_id/{id}")
   @Test
   @Order(9)
+  @Tag("smoke")
+  @DisplayName("GET /get_user_by_id/{id}")
   public void getOneUserByIdTest() {
     System.out.println("user_id = " + user_id);
     System.out.println("userInTest = " + userInTest);
@@ -213,9 +223,9 @@ public class User_Tests extends Utils {
     ;
   }
 
-  @DisplayName("GET negative test not found /get_user_by_id/{id}")
   @Test
   @Order(10)
+  @DisplayName("GET negative test not found /get_user_by_id/{id}")
   public void getOneUserByIdNegativeTest() {
     given()
             .log().all()
@@ -229,9 +239,10 @@ public class User_Tests extends Utils {
     ;
   }
 
-  @DisplayName("GET /get_all_users")
   @Test
   @Order(11)
+  @Tag("smoke")
+  @DisplayName("GET /get_all_users")
   public void getAllUsersTest() {
     List<String> allUsers =
             given()
@@ -250,9 +261,9 @@ public class User_Tests extends Utils {
     System.out.println("uniqueUsers.size() = " + uniqueUsers.size());
   }
 
-  @DisplayName("GET Unauthorised User Student /get_all_users")
   @Test
   @Order(12)
+  @DisplayName("GET Unauthorised User Student /get_all_users")
   public void getAllUsersUnauthorizedUserStudentTest() {
     given()
             .log().all()
@@ -266,9 +277,9 @@ public class User_Tests extends Utils {
     ;
   }
 
-  @DisplayName("GET Unauthorised User NoBody /get_all_users")
   @Test
   @Order(13)
+  @DisplayName("GET Unauthorised User NoBody /get_all_users")
   public void getAllUsersUnauthorizedUserNoBodyTest() {
     given()
             .log().all().
@@ -280,9 +291,10 @@ public class User_Tests extends Utils {
     ;
   }
 
-  @DisplayName("GET /get_user_groups")
   @Test
   @Order(14)
+  @Tag("smoke")
+  @DisplayName("GET /get_user_groups")
   public void getUserGroupsTest() {
     given()
             .log().all()
