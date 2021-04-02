@@ -11,6 +11,6 @@ import org.junit.runner.RunWith;
 @RunWith(JUnitPlatform.class)
 @SuiteDisplayName("Regression Tests")
 @SelectPackages("com.cybertek.library1.testCases")
-@IncludeTags("wip")
+@IncludeTags("regression")
 public class RegressionTests_Runner {
 }

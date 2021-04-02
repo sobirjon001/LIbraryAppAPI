@@ -251,7 +251,7 @@ public class User_Tests extends Utils {
             when()
                     .get("/get_all_users").
             then()
-                    //.log().all()
+                    .log().all()
                     .statusCode(200).
             extract()
                     .jsonPath().getList("name")
