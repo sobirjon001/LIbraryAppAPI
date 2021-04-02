@@ -27,6 +27,7 @@ public class Books_Tests extends Utils {
   @ParameterizedTest(name = "{index} ==> testing with {0} credentials, code {2}")
   @MethodSource("getTokens")
   @Order(1)
+  @Tag("smoke")
   @DisplayName("GET /get_book_categories")
   public void getBooksCategories(String person, String token, String expectedCode) {
     JsonPath jp =
@@ -55,6 +56,7 @@ public class Books_Tests extends Utils {
 
   @Test
   @Order(2)
+  @Tag("smoke")
   @DisplayName("POST /add_book")
   public void addOneBook() {
     Map<String, Object> book = getNewBook();
@@ -77,6 +79,7 @@ public class Books_Tests extends Utils {
 
   @Test
   @Order(3)
+  @Tag("smoke")
   @DisplayName("PATCH /update_book")
   public void updateOneBook() {
     updateBook();
@@ -96,6 +99,7 @@ public class Books_Tests extends Utils {
 
   @Test
   @Order(4)
+  @Tag("smoke")
   @DisplayName("GET /get_book_by_id/{id}")
   public void getOneBookById() {
     given()
@@ -118,6 +122,23 @@ public class Books_Tests extends Utils {
   }
 
   @Test
+  @Order(5)
+  @Disabled // Only super admin can delete book
+  @DisplayName("DELETE /delete_book/{id}")
+  public void deleteOneBookById() {
+    given()
+            .log().all()
+            .header("x-library-token", librarianToken)
+            .pathParam("id", newBook.get("id")).
+            when()
+            .delete("/delete_book/{id}").
+            then()
+            .log().all()
+            .statusCode(204)
+    ;
+  }
+
+  @Test
   @Order(6)
   @DisplayName("GET Negative Test /get_book_by_id/{id}")
   public void getOneBookByIdNegativeTest() {
@@ -130,24 +151,7 @@ public class Books_Tests extends Utils {
     then()
             .log().all()
             .statusCode(404)
-            .body("error", is(newBook.get("Book does not exist")))
-    ;
-  }
-
-  @Test
-  @Order(5)
-  @Disabled // Only super admin can delete book
-  @DisplayName("DELETE /delete_book/{id}")
-  public void deleteOneBookById() {
-    given()
-            .log().all()
-            .header("x-library-token", librarianToken)
-            .pathParam("id", newBook.get("id")).
-    when()
-            .delete("/delete_book/{id}").
-    then()
-            .log().all()
-            .statusCode(204)
+            //.body("error", is(newBook.get("Book does not exist")))
     ;
   }
 
