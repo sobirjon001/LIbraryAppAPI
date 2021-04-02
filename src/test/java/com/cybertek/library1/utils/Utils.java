@@ -21,7 +21,6 @@ public class Utils{
   public static Map<String, String> bookCategories;
   public static Map<String, Object> newBook;
 
-  public static String superUserToken;
   public static String librarianToken;
   public static String studentToken;
 
@@ -29,10 +28,6 @@ public class Utils{
   public static void init() {
     baseURI = ConfigurationReader.getProperty("base_url");
     basePath = ConfigurationReader.getProperty("base_path");
-    superUserToken = getToken(
-            "malcolm.rolfson@gmail.com",
-            "d2eb6f72634a033165e6a2eb9e4a0291"
-    );
     librarianToken = getToken(
             ConfigurationReader.getProperty("librarian69"),
             ConfigurationReader.getProperty("librarian69Passwd")

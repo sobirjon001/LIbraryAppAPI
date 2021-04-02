@@ -119,12 +119,12 @@ public class Books_Tests extends Utils {
 
   @Test
   @Order(6)
-  @DisplayName("GET Negative Test Requesting deleted Book /get_book_by_id/{id}")
+  @DisplayName("GET Negative Test /get_book_by_id/{id}")
   public void getOneBookByIdNegativeTest() {
     given()
             .log().all()
             .header("x-library-token", librarianToken)
-            .pathParam("id", newBook.get("id")).
+            .pathParam("id", "99991").
     when()
             .get("/get_book_by_id/{id}").
     then()
@@ -136,11 +136,12 @@ public class Books_Tests extends Utils {
 
   @Test
   @Order(5)
+  @Disabled // Only super admin can delete book
   @DisplayName("DELETE /delete_book/{id}")
   public void deleteOneBookById() {
     given()
             .log().all()
-            .header("x-library-token", superUserToken)
+            .header("x-library-token", librarianToken)
             .pathParam("id", newBook.get("id")).
     when()
             .delete("/delete_book/{id}").
