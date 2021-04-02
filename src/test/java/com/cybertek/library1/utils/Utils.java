@@ -17,6 +17,7 @@ public class Utils{
   private static final Faker faker = new Faker();
   public static String user_id;
   public static Map<String, Object> userInTest;
+  public static Map<String, String> bookCategories;
 
   public static String librarianToken;
   public static String studentToken;
