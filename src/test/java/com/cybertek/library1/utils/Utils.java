@@ -104,7 +104,8 @@ public class Utils{
   }
 
   public static String[][] getTokens() {
-    return new String[][]{{"librarian", librarianToken, "200"},
+    return new String[][]{
+            {"librarian", librarianToken, "200"},
             {"student", studentToken, "200"},
             {"invalid", "invalid_token", "401"}
     };
