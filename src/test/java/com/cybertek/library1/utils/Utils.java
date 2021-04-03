@@ -3,6 +3,7 @@ package com.cybertek.library1.utils;
 import com.github.javafaker.Faker;
 
 import static io.restassured.RestAssured.*;
+import static org.hamcrest.Matchers.is;
 
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.AfterAll;
@@ -55,6 +56,19 @@ public class Utils{
            extract()
                   .path("token")
            ;
+  }
+
+  public static String getMyId(String token) {
+    return given()
+                   .contentType(ContentType.URLENC)
+                   .formParam("token", token).
+            when()
+                   .post("/decode").
+            then()
+                   .statusCode(200).
+            extract()
+                    .jsonPath().get("id")
+            ;
   }
 
   public static Map<String, Object> getNewUser() {

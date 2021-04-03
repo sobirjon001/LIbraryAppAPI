@@ -21,7 +21,7 @@ import static org.hamcrest.Matchers.is;
 @RunWith(JUnitPlatform.class)
 @DisplayName("All test cases related to Books section in documentation")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@Tag("regression")
+//@Tag("regression")
 public class Books_Tests extends Utils {
 
   @ParameterizedTest(name = "{index} ==> testing with {0} credentials, code {2}")

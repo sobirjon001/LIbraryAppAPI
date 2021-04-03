@@ -3,6 +3,7 @@ package com.cybertek.library1.testCases;
 import com.cybertek.library1.utils.ConfigurationReader;
 import com.cybertek.library1.utils.Utils;
 import io.restassured.http.ContentType;
+import io.restassured.path.json.JsonPath;
 import org.junit.jupiter.api.*;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
@@ -13,12 +14,13 @@ import java.util.Set;
 
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 @RunWith(JUnitPlatform.class)
-@DisplayName("All test cases related to User section in documentation")
+@DisplayName("All test cases related to User section in documentation using Map")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @Tag("regression")
-public class User_Tests extends Utils {
+public class User_UsingMap_Tests extends Utils {
 
   @Test
   @Order(1)
@@ -201,6 +203,7 @@ public class User_Tests extends Utils {
   public void getOneUserByIdTest() {
     System.out.println("user_id = " + user_id);
     System.out.println("userInTest = " + userInTest);
+    JsonPath jp =
     given()
             .log().all()
             .header("x-library-token", librarianToken)
@@ -209,18 +212,22 @@ public class User_Tests extends Utils {
             .get("/get_user_by_id/{id}").
     then()
             .log().all()
-            .statusCode(200)
-            .body("id", is(userInTest.get("id")))
-            .body("full_name", is(userInTest.get("full_name")))
-            .body("email", is(userInTest.get("email")))
-            //.body("password", is(userInTest.get("password")))
-            .body("user_group_id", is(userInTest.get("user_group_id")))
-            .body("status", is(userInTest.get("status")))
-            .body("is_admin", is("0"))
-            .body("start_date", is(userInTest.get("start_date")))
-            .body("end_date", is(userInTest.get("end_date")))
-            .body("address", is(userInTest.get("address")))
+            .statusCode(200).
+    extract().
+            jsonPath()
     ;
+    assertAll(() -> {
+      assertEquals(jp.get("id"), userInTest.get("id"));
+      assertEquals(jp.get("full_name"), userInTest.get("full_name"));
+      assertEquals(jp.get("email"), userInTest.get("email"));
+      assertEquals(jp.get("password"), userInTest.get("password"));
+      assertEquals(jp.get("user_group_id"), userInTest.get("user_group_id"));
+      assertEquals(jp.get("status"), userInTest.get("status"));
+      assertEquals(jp.get("is_admin"), userInTest.get("is_admin"));
+      assertEquals(jp.get("start_date"), userInTest.get("start_date"));
+      assertEquals(jp.get("end_date"), userInTest.get("end_date"));
+      assertEquals(jp.get("address"), userInTest.get("address"));
+    });
   }
 
   @Test
