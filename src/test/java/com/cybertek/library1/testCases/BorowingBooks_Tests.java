@@ -30,7 +30,7 @@ public class BorowingBooks_Tests extends Utils {
     then()
             .log().status()
             .statusCode(200)
-            .body(greaterThan(0))
+            .body("size()", greaterThan(0))
     ;
   }
 
